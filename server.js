@@ -35,12 +35,16 @@ app.get("/api/notes", function(req, res) {
 app.post("/api/notes", function(req, res) {
   //stores note information into variable
   let newNote = req.body;
+  req.body.id = Math.floor(Math.random() * 100)
   console.log(newNote)
-
-  obj.push(newNote)
   
+  obj.push(newNote)
+
   fs.writeFile(path.join(__dirname, "./db/db.json"), JSON.stringify(obj), function (err) {
-    console.log(err);
+    if (err) {
+      throw err
+    }
+    console.log("Saved note!")
   });
     
 
