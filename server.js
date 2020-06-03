@@ -1,27 +1,33 @@
+//DEPENDENCIES
 const express = require("express");
 const path = require("path")
 const fs = require("fs")
-let obj = require("./db/db.json")
+//defines db (an array of objects)
+let arr = require("./db/db.json")
 
-
+//tells app creating an app server
 var app = express();
+//sets a port
 var PORT = process.env.PORT || 8080;
 // Sets up the Express app to handle data parsing
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-
+//static public
 app.use(express.static("public"));
-// require("./public/assets/js/index.js")(app);
 
+//ROUTES
 
+//Home page html route
 app.get("/", function (req, res) {
     res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
+//notes html route
 app.get('/notes', (req, res) => {
     res.sendFile(path.join(__dirname, "public", "notes.html"));
 });
 
+// API route shown JSON
 app.get("/api/notes", function(req, res) {
     fs.readFile(path.join(__dirname, "db", "db.json"), function(err, data) {
       if (err) throw err;
@@ -29,43 +35,40 @@ app.get("/api/notes", function(req, res) {
     });
   });
 
+//API POST request code that handles when a user submits form
 app.post("/api/notes", function(req, res) {
   //stores note information into variable
   let newNote = req.body;
   req.body.id = Math.floor(Math.random() * 100)
-  console.log(newNote)
   
-  obj.push(newNote)
+  arr.push(newNote)
 
-  fs.writeFile(path.join(__dirname, "./db/db.json"), JSON.stringify(obj), function (err) {
+  fs.writeFile(path.join(__dirname, "./db/db.json"), JSON.stringify(arr), function (err) {
     if (err) {
       throw err
     }
     console.log("Saved note!");
-    res.json(obj);
+    res.json(arr);
   });
     
   });
-//-Should receive a query parameter containing the id of a note to delete. 
-// This means you'll need to find a way to give each note a unique `id` when it's saved. 
-// In order to delete a note, you'll need to read all notes from the `db.json` file, 
-// remove the note with the given `id` property, and then rewrite the notes to the `db.json` file.
 
+//route to delete file
 app.delete("/api/notes/:id", function(req, res) {
-  // fs.readFile(path.join(__dirname, "db", "db.json"), function(err, data) {
-      // console.log(req.params.id)
+        //finds id
         let newId = req.params.id
-        obj = obj.filter(note => {
+        //filters array to remove id 
+        arr = arr.filter(note => {
           return note.id != newId
         })
   
-  
-    fs.writeFile(path.join(__dirname, "db", "db.json"), JSON.stringify(obj), (err) => {
+      //writes new updated array to db file
+    fs.writeFile(path.join(__dirname, "db", "db.json"), JSON.stringify(arr), (err) => {
         if (err) throw err;
-        res.json(obj)
+        res.json(arr)
       });
-// })
 });
+
 // Start our server so that it can begin listening to client requests.
 app.listen(PORT, function () {
   console.log("App listening on PORT " + PORT);
