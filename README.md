@@ -24,6 +24,8 @@ SO THAT I can organize my thoughts and keep track of tasks I need to complete
   
   ## Deployment
 
+  Visit the following link for deployed application:
+
   [Note Taker Application](https://ancient-lake-90836.herokuapp.com/)
 
 
