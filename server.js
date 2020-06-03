@@ -1,20 +1,17 @@
-var express = require("express");
-var path = require("path")
-var fs = require("fs")
-var obj = require("./db/db.json")
+const express = require("express");
+const path = require("path")
+const fs = require("fs")
+let obj = require("./db/db.json")
 
 
 var app = express();
-var PORT = 8080;
+var PORT = process.env.PORT || 8080;
 // Sets up the Express app to handle data parsing
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.use(express.static("public"));
 // require("./public/assets/js/index.js")(app);
-
-
-//notes array
 
 
 app.get("/", function (req, res) {
@@ -45,7 +42,7 @@ app.post("/api/notes", function(req, res) {
       throw err
     }
     console.log("Saved note!");
-    res.json(obj)
+    res.json(obj);
   });
     
   });
@@ -56,11 +53,17 @@ app.post("/api/notes", function(req, res) {
 
 app.delete("/api/notes/:id", function(req, res) {
   // fs.readFile(path.join(__dirname, "db", "db.json"), function(err, data) {
-    if (req.params.id) {
-      console.log(req.params.id)
-    }
+      // console.log(req.params.id)
+        let newId = req.params.id
+        obj = obj.filter(note => {
+          return note.id != newId
+        })
   
-
+  
+    fs.writeFile(path.join(__dirname, "db", "db.json"), JSON.stringify(obj), (err) => {
+        if (err) throw err;
+        res.json(obj)
+      });
 // })
 });
 // Start our server so that it can begin listening to client requests.
