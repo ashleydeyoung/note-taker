@@ -1,4 +1,4 @@
-# NOTE-Taker
+# Note Taker Application
 
   ## Description
   
@@ -16,65 +16,20 @@ SO THAT I can organize my thoughts and keep track of tasks I need to complete
 
   ## Table Of Contents
   
-  * [Installation](#installation)
-  
-  * [Usage](#usage)
-  
+  * [Deployment](#deployment)
+
   * [Demo of Application](#demo-of-application)
   
   * [Questions](#questions)
   
-  ## Installation
-  
-  To install necessary dependencies, run the following command:
-  
-  ```
-  npm i
-  ```
-  Once dependencies are installed, the application is ready to run. 
+  ## Deployment
 
-
-  ## Usage
-
-  To run the application from the command line please run the following command:
-
-  ```
-  node server.js
-  ``` 
-  
-  Following the command, the user will be instructed to answer questions regarding their team.
-
-  ![Command line questions preview](Assets/questions-preview.png)
-
-  
-  Once the user has submitted information on all employees, the data input is written in the generate HTML file and the user is notifed.
-
-  ![Generated HTML preview](Assets/success-preview.png)
-  
-
-  The user can now view the generated HTML in the output directory:
-
-  ```
-  $ cd output/
-  $ code .
-  ``` 
-
-  The following is an example of HTML in browser:
-
-  ![HTML in browswer preview](Assets/HTML-preview.png)
-
-
+  [Note Taker Application](https://ancient-lake-90836.herokuapp.com/)
 
 
   ## Demo of Application
-  ![Command line questions Preview](Assets/command-line-preview.gif)
 
-  *demo of command to run application and generated questions*
-
-  ![Generated HTML Preview](Assets/html-preview.gif)
-  
-  *demo of generated HTML from command line*
-
+  ![Demo of Note Taker App](public/assets/images/note-taker.gif)
 
   ## Questions
   
