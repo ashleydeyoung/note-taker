@@ -44,19 +44,25 @@ app.post("/api/notes", function(req, res) {
     if (err) {
       throw err
     }
-    console.log("Saved note!")
+    console.log("Saved note!");
+    res.json(obj)
   });
     
-
-  //write fs.writeFile
-  // fs.writeFile(path.join(__dirname, "./db/db.json"), JSON.stringify(note), (err) => {
-  //   if (err)
-  //   throw err;
-  //   console.log("This note was added")
-  // })
-
-    // res.json(path.join(__dirname, "./db/db.json", newNote));
   });
+//-Should receive a query parameter containing the id of a note to delete. 
+// This means you'll need to find a way to give each note a unique `id` when it's saved. 
+// In order to delete a note, you'll need to read all notes from the `db.json` file, 
+// remove the note with the given `id` property, and then rewrite the notes to the `db.json` file.
+
+app.delete("/api/notes/:id", function(req, res) {
+  // fs.readFile(path.join(__dirname, "db", "db.json"), function(err, data) {
+    if (req.params.id) {
+      console.log(req.params.id)
+    }
+  
+
+// })
+});
 // Start our server so that it can begin listening to client requests.
 app.listen(PORT, function () {
   console.log("App listening on PORT " + PORT);
